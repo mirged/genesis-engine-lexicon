@@ -53,7 +53,7 @@ This supports the project's development and respects your time.
 
 The source code is licensed under the [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
-**In short:** You are free to view, share, and modify the source code for **non-commercial, personal use**. You are not permitted to redistribute the source code or compiled binaries. Please see the `LICENSE.md` file for full details.
+**In short:** You are free to view, share, and modify the source code for **non-commercial, personal use**. You are not permitted to redistribute the source code or compiled binaries. Please see the `LICENSE.txt` file for full details.
 
 ## Contributing
 
