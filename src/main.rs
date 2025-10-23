@@ -18,7 +18,6 @@ impl PhoneticInventory {
             .iter()
             .filter(|p| p.sound_type == "Consonant")
             .collect::<Vec<_>>()
-            // .choose() is now in scope because we imported the prelude.
             .choose(&mut rand::rng())
             .copied()
     }
