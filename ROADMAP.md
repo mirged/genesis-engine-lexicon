@@ -10,7 +10,7 @@ The roadmap is divided into thematic milestones, each building upon the last to 
 *Focus: Forging the raw sounds and structures of language.*
 
 - [x] Core `Phoneme` data structure
-- [ ] `PhoneticInventory` to manage a language's sound palette
+- [x] `PhoneticInventory` to manage a language's sound palette
 - [ ] **Configurable Phonotactics:** User-defined rules for syllable structure (e.g., CVC, CCV) and illegal sound combinations.
 - [ ] **Prosody & Stress Engine:** Basic rules for word stress and intonation patterns (e.g., iambic, trochaic), giving the language a natural rhythm.
 - [ ] **Morphological Generator:** An engine to create a vast lexicon of root words based on the defined phonetics.
