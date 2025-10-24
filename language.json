@@ -1,0 +1,17 @@
+{
+  "phonemes": [
+    { "grapheme": "p", "sound_type": "Consonant" },
+    { "grapheme": "t", "sound_type": "Consonant" },
+    { "grapheme": "k", "sound_type": "Consonant" },
+    { "grapheme": "a", "sound_type": "Vowel" },
+    { "grapheme": "i", "sound_type": "Vowel" },
+    { "grapheme": "u", "sound_type": "Vowel" }
+  ],
+  "syllable_rules": [
+    "CV",
+    "CVC",
+    "V"
+  ],
+  "min_syllables": 1,
+  "max_syllables": 3
+}
