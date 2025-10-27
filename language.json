@@ -1,17 +1,69 @@
 {
   "phonemes": [
-    { "grapheme": "p", "sound_type": "Consonant" },
-    { "grapheme": "t", "sound_type": "Consonant" },
+    { "grapheme": "g", "sound_type": "Consonant" },
     { "grapheme": "k", "sound_type": "Consonant" },
+    { "grapheme": "d", "sound_type": "Consonant" },
+    { "grapheme": "t", "sound_type": "Consonant" },
+    { "grapheme": "b", "sound_type": "Consonant" },
+    { "grapheme": "z", "sound_type": "Consonant" },
+    { "grapheme": "r", "sound_type": "Consonant" },
+    { "grapheme": "th", "sound_type": "Consonant" },
+    { "grapheme": "kh", "sound_type": "Consonant" }, 
+    { "grapheme": "gr", "sound_type": "Consonant" },
+    
+
     { "grapheme": "a", "sound_type": "Vowel" },
-    { "grapheme": "i", "sound_type": "Vowel" },
-    { "grapheme": "u", "sound_type": "Vowel" }
+    { "grapheme": "u", "sound_type": "Vowel" },
+    { "grapheme": "o", "sound_type": "Vowel" }
   ],
   "syllable_rules": [
-    "CV",
     "CVC",
-    "V"
+    "CVC",
+    "CV",
+    "CCV"
   ],
-  "min_syllables": 1,
-  "max_syllables": 3
+  "min_syllables_for_root": 1,
+  "max_syllables_for_root": 2,
+  "illegal_patterns": [], 
+  "sequence_rules": {
+    "max_vowel_syllables_in_a_row": 0 
+  },
+
+  "lexicon_generation": {
+    "parts_of_speech": [ "noun", "verb", "adj" ],
+    "meanings": {
+      "noun": [ "stone", "iron", "gold", "axe", "beard", "hall", "grudge", "blood", "mountain" ],
+      "verb": [ "cleave", "dig", "forge", "drink", "fight", "endure", "remember", "avenge" ],
+      "adj": [ "deep", "hard", "old", "strong", "rich", "bitter", "unforgiven" ]
+    }
+  },
+
+  "morphology": {
+    "affixes": [
+      {
+        "form": "az-", "affix_type": "prefix",
+        "function": "augmentative", "meaning": "great-"
+      },
+      {
+        "form": "kaz-", "affix_type": "prefix",
+        "function": "collective", "meaning": "all-"
+      },
+      {
+        "form": "-ul", "affix_type": "suffix",
+        "function": "location", "meaning": "the place of"
+      },
+      {
+        "form": "-ag", "affix_type": "suffix",
+        "function": "instrumental_noun", "meaning": "the tool for"
+      },
+      {
+        "form": "-im", "affix_type": "suffix",
+        "function": "adjectivizer", "meaning": "-like"
+      },
+      {
+        "form": "-ok", "affix_type": "suffix",
+        "function": "pluralizer", "meaning": "many"
+      }
+    ]
+  }
 }

@@ -1,115 +1,76 @@
-use rand::prelude::*;
-use serde::Deserialize;
-use std::{fs::File, io::Read};
+use genesis_engine_lexicon::{initialize_from_config};
+use clap::{Parser, Subcommand};
 
-#[derive(Debug, Clone, Deserialize)]
-pub struct Phoneme {
-    grapheme: String,
-    sound_type: String,
+
+#[derive(Parser, Debug)]
+#[command(author, version, about = "Genesis Engine: A Procedural Language Simulator")]
+struct Cli {
+    #[command(subcommand)]
+    command: Commands,
 }
 
-pub struct PhoneticInventory {
-    phonemes: Vec<Phoneme>,
+#[derive(Subcommand, Debug)]
+enum Commands {
+    /// Generate words using a language configuration file
+    Generate {
+        /// Path to the language JSON file
+        #[arg(short, long)]
+        lang: String,
+
+        /// Number of words to generate
+        #[arg(short, long, default_value_t = 20)]
+        count: usize,
+    },
+    /// Validate the syntax of a language configuration file
+    Validate {
+        /// Path to the language JSON file to validate
+        #[arg(short, long)]
+        lang: String,
+    },
 }
 
-impl PhoneticInventory {
-    fn get_random_consonant(&self) -> Option<&Phoneme> {
-        self.phonemes.iter().filter(|p| p.sound_type == "Consonant").collect::<Vec<_>>().choose(&mut rand::rng()).copied()
-    }
-
-    fn get_random_vowel(&self) -> Option<&Phoneme> {
-        self.phonemes.iter().filter(|p| p.sound_type == "Vowel").collect::<Vec<_>>().choose(&mut rand::rng()).copied()
-    }
-}
-
-#[derive(Debug, Clone)]
-pub struct SyllableRule {
-    pattern: String,
-}
-
-impl SyllableRule {
-    pub fn new(pattern: &str) -> Self {
-        Self { pattern: pattern.to_string() }
-    }
-}
-
-pub struct SyllableGenerator {
-    pub rules: Vec<SyllableRule>,
-    pub min_syllables: usize,
-    pub max_syllables: usize,
-}
-
-impl SyllableGenerator {
-    pub fn new(rules: Vec<SyllableRule>, min_syllables: usize, max_syllables: usize) -> Self {
-        Self { rules, min_syllables, max_syllables }
-    }
-
-    pub fn generate_syllable(&self, inventory: &PhoneticInventory) -> String {
-        let rule = self.rules.choose(&mut rand::rng()).unwrap();
-        let mut syllable = String::new();
-        for c in rule.pattern.chars() {
-            match c {
-                'C' => {
-                    if let Some(consonant) = inventory.get_random_consonant() { syllable.push_str(&consonant.grapheme); }
-                }
-                'V' => {
-                    if let Some(vowel) = inventory.get_random_vowel() { syllable.push_str(&vowel.grapheme); }
-                }
-                _ => {}
-            }
-        }
-        syllable
-    }
-
-    pub fn generate_word(&self, inventory: &PhoneticInventory) -> String {
-        let num_syllables = rand::rng().random_range(self.min_syllables..=self.max_syllables);
-        let mut word = String::new();
-        for _ in 0..num_syllables {
-            word.push_str(&self.generate_syllable(inventory));
-        }
-        word
-    }
-}
-
-#[derive(Deserialize)]
-pub struct LanguageConfig {
-    pub phonemes: Vec<Phoneme>,
-    pub syllable_rules: Vec<String>,
-    pub min_syllables: usize,
-    pub max_syllables: usize,
-}
-
-/// Reads a config file and builds the core engine components.
-fn initialize_from_config(config_path: &str) -> (PhoneticInventory, SyllableGenerator) {
-    // 1. Read and parse the configuration file
-    let mut config_file = File::open(config_path).expect("Failed to open config file");
-    let mut contents = String::new();
-    config_file.read_to_string(&mut contents).expect("Failed to read config file");
-    let config: LanguageConfig = serde_json::from_str(&contents).expect("Failed to parse JSON");
-
-    // 2. Build the engine components from the configuration
-    let inventory = PhoneticInventory { phonemes: config.phonemes };
-    let syllable_rules = config.syllable_rules.iter().map(|r| SyllableRule::new(r)).collect();
-
-    let syllable_generator = SyllableGenerator::new(
-        syllable_rules,
-        config.min_syllables,
-        config.max_syllables,
-    );
-    
-    // 3. Return the constructed components as a tuple
-    (inventory, syllable_generator)
-}
 
 fn main() {
-    // 1. Initialize the engine from our configuration file.
-    let (inventory, generator) = initialize_from_config("language.json");
+    let cli = Cli::parse();
 
-    // 2. Run the generation process.
-    println!("--- Genesis Engine: Configurable Lexicon ---");
-    println!("Generating 20 random words from {}...\n", "language.json");
-    for i in 0..20 {
-        let word = generator.generate_word(&inventory);
-        println!("Word {}: {}", i + 1, word);
+    match &cli.command {
+        Commands::Generate { lang, count } => {
+            println!("--- Genesis Engine: Morphological Engine v0.8 ---");
+            println!("Loading language from: {}", lang);
+            
+            // Now we handle the Result from the initialization function.
+            match initialize_from_config(lang) {
+                Ok((inventory, mut generator)) => {
+                    let lexicon = generator.generate_lexicon(*count, &inventory);
+
+                    for i in 0..*count {
+                        let word = generator.derive_word(&lexicon[i], &inventory);
+                        println!("{}: {} (Meaning:{})", i + 1, word.form, word.derived_meaning);
+                    }
+
+                }
+                Err(e) => {
+                    // If initialization fails, print a user-friendly error message.
+                    eprintln!("\nError: Failed to initialize generator.");
+                    eprintln!("Reason: {}", e);
+                }
+            }
+        }
+        Commands::Validate { lang } => {
+            println!("Validating configuration file: {}", lang);
+            
+            // --- THE NEW VALIDATE LOGIC ---
+            match initialize_from_config(lang) {
+                Ok(_) => {
+                    // If the function returns Ok, it means the file was read and parsed successfully.
+                    println!("\n✅ Success: Configuration file is valid and well-formed.");
+                }
+                Err(e) => {
+                    // If it returns an Err, we print a specific, helpful error message.
+                    eprintln!("\n❌ Error: Configuration file is invalid.");
+                    eprintln!("Reason: {}", e);
+                }
+            }
+        }
     }
 }
