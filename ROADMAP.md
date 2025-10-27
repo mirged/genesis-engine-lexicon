@@ -13,7 +13,7 @@ The roadmap is divided into thematic milestones, each building upon the last to 
 - [x] `PhoneticInventory` to manage a language's sound palette
 - [X] **Configurable Phonotactics:** User-defined rules for syllable structure (e.g., CVC, CCV) and illegal sound combinations.
 - [ ] **Prosody & Stress Engine:** Basic rules for word stress and intonation patterns (e.g., iambic, trochaic), giving the language a natural rhythm.
-- [ ] **Morphological Generator:** An engine to create a vast lexicon of root words based on the defined phonetics.
+- [X] **Morphological Generator:** An engine to create a vast lexicon of root words based on the defined phonetics.
 - [X] **CLI Interface:** Full command-line control for generation and data export.
 
 ---
