@@ -16,6 +16,10 @@
     { "grapheme": "u", "sound_type": "Vowel" },
     { "grapheme": "o", "sound_type": "Vowel" }
   ],
+
+  "grammar": {
+    "word_order": "SVO"
+  },
   "syllable_rules": [
     "CVC",
     "CVC",
@@ -38,31 +42,46 @@
     }
   },
 
+
   "morphology": {
-    "affixes": [
+    "derivational_rules": [
       {
-        "form": "az-", "affix_type": "prefix",
-        "function": "augmentative", "meaning": "great-"
+        "name": "Augmentative",
+        "applies_to_pos": ["noun", "adj"],
+        "output_pos": "SameAsInput", 
+        "type": "Prefix", "form": "az-",
+        "meaning_template": "great-{parent_meaning}"
       },
       {
-        "form": "kaz-", "affix_type": "prefix",
-        "function": "collective", "meaning": "all-"
+        "name": "Collective",
+        "applies_to_pos": ["noun"],
+        "output_pos": "noun",
+        "type": "Prefix", "form": "kaz-",
+        "meaning_template": "a collection of {parent_meaning}"
       },
       {
-        "form": "-ul", "affix_type": "suffix",
-        "function": "location", "meaning": "the place of"
+        "name": "LocationOf",
+        "applies_to_pos": ["noun"],
+        "output_pos": "noun",
+        "type": "Suffix", "form": "-ul",
+        "meaning_template": "the place of {parent_meaning}",
+        "constraints": {
+      "cannot_follow_rules": ["LocationOf"]
+        }
       },
       {
-        "form": "-ag", "affix_type": "suffix",
-        "function": "instrumental_noun", "meaning": "the tool for"
+        "name": "Instrumental",
+        "applies_to_pos": ["verb"],
+        "output_pos": "noun",
+        "type": "Suffix", "form": "-ag",
+        "meaning_template": "the tool for {parent_meaning}"
       },
       {
-        "form": "-im", "affix_type": "suffix",
-        "function": "adjectivizer", "meaning": "-like"
-      },
-      {
-        "form": "-ok", "affix_type": "suffix",
-        "function": "pluralizer", "meaning": "many"
+        "name": "Adjectivizer",
+        "applies_to_pos": ["noun"],
+        "output_pos": "adj",
+        "type": "Suffix", "form": "-im",
+        "meaning_template": "{parent_meaning}-like"
       }
     ]
   }

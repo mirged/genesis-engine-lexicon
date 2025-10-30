@@ -13,7 +13,7 @@ The roadmap is divided into thematic milestones, each building upon the last to 
 - [x] `PhoneticInventory` to manage a language's sound palette
 - [X] **Configurable Phonotactics:** User-defined rules for syllable structure (e.g., CVC, CCV) and illegal sound combinations.
 - [ ] **Prosody & Stress Engine:** Basic rules for word stress and intonation patterns (e.g., iambic, trochaic), giving the language a natural rhythm.
-- [ ] **Morphological Generator:** An engine to create a vast lexicon of root words based on the defined phonetics.
+- [X] **Morphological Generator:** An engine to create a vast lexicon of root words based on the defined phonetics.
 - [X] **CLI Interface:** Full command-line control for generation and data export.
 
 ---
@@ -22,8 +22,8 @@ The roadmap is divided into thematic milestones, each building upon the last to 
 *Focus: Assembling the rules that govern meaning and structure.*
 
 - [ ] **Configurable Grammar Engine:** Define core grammatical properties like word order (SVO, SOV, VSO), noun cases (nominative, accusative), verb aspects (perfective, imperfective), and more.
-- [ ] **Derivational Morphology:** A powerful affix system (prefixes, suffixes, infixes) to derive new words from existing roots (e.g., 'run' -> 'runner', 'rerun').
-- [ ] **Etymological Graph:** Track the "family tree" of every word, showing how complex words evolved from simpler roots.
+- [X] **Derivational Morphology:** A powerful affix system (prefixes, suffixes, infixes) to derive new words from existing roots (e.g., 'run' -> 'runner', 'rerun').
+- [X] **Etymological Graph:** Track the "family tree" of every word, showing how complex words evolved from simpler roots.
 - [ ] **"The Schism" - Language Evolution Engine:** Simulate thousands of years of linguistic drift. Apply configurable sound change rules to evolve a single proto-language into a family of distinct daughter languages.
 
 ---
